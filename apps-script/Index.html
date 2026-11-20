@@ -1,0 +1,1180 @@
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap');
+
+/* ============================================================
+   Design tokens — Decathlon To B design system
+   (Figma Vitamin_To-B / To B _ Design System, 2026-09-21)
+   Border radius token = 0px; shadows/gradients/opacity are not
+   defined by the baseline — instance values are noted inline.
+   ============================================================ */
+:root {
+  /* Color — Background / Border */
+  --tob-bg-main: #F6F6F6;          /* Background/Main */
+  --tob-bg-alt: #FFFFFF;           /* Background/Alternative */
+  --tob-border: #D9D9D9;           /* Border/Brand */
+  --tob-border-secondary: #F6F6F6; /* Border/Secondary */
+  --tob-border-split: #3643BA;     /* Border/Spilt */
+
+  /* Color — Brand / Text / Icon */
+  --tob-brand: #3643BA;            /* Container/Icon/Brand · Text/Brand · Link */
+  --tob-text: #101010;             /* Container/Text/Text · Icon/Black */
+  --tob-text-secondary: #262626;
+  --tob-text-tertiary: #595959;
+  --tob-text-placeholder: #8C8C8C;
+  --tob-text-quaternary: #BFBFBF;  /* = Container/Icon/Light */
+  --tob-text-light: #D9D9D9;
+  --tob-text-white: #FFFFFF;
+
+  /* Status — reserved for status semantics only (delete = negative) */
+  --tob-negative: #D9363E;
+  --tob-negative-bg: #FFF2F0;
+  --tob-negative-border: #FFCCC7;
+
+  /* Category scale — no category palette exists in To B tokens;
+     approved fallback: brand + neutral Container/Icon & Text grays */
+  --cat-work: #3643BA;             /* Icon/Brand */
+  --cat-sport: #101010;            /* Icon/Black */
+  --cat-food: #595959;             /* Text/Tertiary */
+  --cat-rest: #8C8C8C;             /* Text/Placeholder */
+  --cat-personal: #BFBFBF;         /* Icon/Light */
+
+  /* Typography — SF Pro Text headings · Source Han Sans CN / Decathlon Text body */
+  --tob-font-heading: 'SF Pro Text', 'Source Han Sans CN', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --tob-font-body: 'Decathlon Text', 'SF Pro Text', 'Source Han Sans CN', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  /* all letter-spacing = 0 per spec */
+
+  /* Spacing scale */
+  --sp-3xs: 2px;  --sp-2xs: 4px;  --sp-xs: 8px;   --sp-s: 12px;
+  --sp-m: 16px;   --sp-l: 20px;   --sp-xl: 24px;  --sp-2xl: 32px;
+  --sp-3xl: 40px; --sp-4xl: 48px;
+
+  /* Border Radius token */
+  --tob-radius: 0px;
+
+  /* calendar metrics */
+  --slot-h: 26px;          /* 30 minutes */
+  --hour-h: 52px;          /* 60 minutes */
+  --gutter-w: 64px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: var(--tob-font-body);
+  font-size: 16px; line-height: 24px; font-weight: 500;  /* Body/Medium */
+  letter-spacing: 0;
+  color: var(--tob-text);
+  background: var(--tob-bg-main);
+}
+
+.page { max-width: 1240px; margin: 0 auto; padding: var(--sp-l) var(--sp-m) var(--sp-2xl); }
+
+/* ---------- Header ---------- */
+.hero {
+  background: var(--tob-brand);
+  color: var(--tob-text-white);
+  border-radius: var(--tob-radius);
+  padding: var(--sp-xl) var(--sp-2xl);
+  display: flex; align-items: center; justify-content: space-between;
+  gap: var(--sp-m); flex-wrap: wrap;
+}
+.hero h1 {
+  font-family: var(--tob-font-heading);
+  font-size: 38px; line-height: 46px; font-weight: 400;   /* Heading/1 */
+  letter-spacing: 0;
+  margin: 0;
+}
+.hero .sub { font-size: 16px; line-height: 24px; font-weight: 500; color: var(--tob-text-light); margin-top: var(--sp-2xs); }
+.hero h1[contenteditable] {
+  outline: none; border-radius: var(--tob-radius);
+  padding: 0 6px; margin-left: -6px; cursor: text;
+  transition: background 0.15s ease;
+}
+/* hover/focus states: missing-baseline — instance values */
+.hero h1[contenteditable]:hover { background: rgba(255, 255, 255, 0.12); }
+.hero h1[contenteditable]:focus { background: rgba(255, 255, 255, 0.18); outline: 2px solid var(--tob-text-white); outline-offset: 2px; }
+
+/* editable date-range row under the title */
+.range-row { display: flex; align-items: center; gap: var(--sp-xs); flex-wrap: wrap; margin-top: var(--sp-xs); opacity: 1; }
+.range-row .range-label { font-size: 14px; line-height: 20px; font-weight: 700; letter-spacing: 0; color: var(--tob-text-light); }
+.date-input {
+  font-family: var(--tob-font-body); font-size: 14px; line-height: 20px; font-weight: 700;
+  color: var(--tob-text); background: var(--tob-bg-alt);
+  border: 1px solid var(--tob-bg-alt); border-radius: var(--tob-radius);
+  padding: 4px 8px; cursor: pointer; color-scheme: light;
+}
+.date-input:hover { border-color: var(--tob-text); }
+.date-input:focus { outline: 2px solid var(--tob-text); outline-offset: 1px; }
+.range-sep { color: var(--tob-text-light); font-weight: 700; }
+.range-note { font-size: 14px; line-height: 20px; color: var(--tob-text-light); }
+.btn-today {
+  font-family: var(--tob-font-body); font-size: 14px; line-height: 20px; font-weight: 700;
+  color: var(--tob-brand); background: var(--tob-bg-alt);
+  border: none; border-radius: var(--tob-radius); padding: 4px 12px; cursor: pointer;
+}
+.btn-today:hover { filter: brightness(0.94); }
+.hero-side { display: flex; align-items: center; gap: var(--sp-s); flex-wrap: wrap; }
+.lang-switch { display: inline-flex; gap: var(--sp-2xs); }
+.lang-btn {
+  font-family: var(--tob-font-body); font-size: 14px; line-height: 20px; font-weight: 700;
+  border: none; border-radius: var(--tob-radius); background: transparent; color: var(--tob-text-white);
+  padding: 4px 12px; cursor: pointer;
+  transition: background 0.15s ease;
+}
+.lang-btn:hover { background: rgba(255, 255, 255, 0.16); }   /* hover: missing-baseline */
+.lang-btn.active, .lang-btn.active:hover { background: var(--tob-bg-alt); color: var(--tob-brand); }
+.hero .accent-chip {
+  background: var(--tob-bg-alt); color: var(--tob-brand);
+  font-weight: 700; font-size: 14px; line-height: 20px;
+  padding: var(--sp-xs) var(--sp-s); border-radius: var(--tob-radius); white-space: nowrap;
+}
+
+/* ---------- Toolbar ---------- */
+.toolbar {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: var(--sp-s); flex-wrap: wrap; margin: var(--sp-m) 0;
+}
+.legend { display: flex; gap: var(--sp-xs); flex-wrap: wrap; }
+.tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 14px; line-height: 20px; font-weight: 700;
+  padding: 4px 10px; border-radius: var(--tob-radius);
+  background: var(--tob-bg-alt); border: 1px solid var(--tob-border);
+  color: var(--tob-text-secondary);
+}
+.tag .dot { width: 8px; height: 8px; border-radius: var(--tob-radius); }
+.tag-work .dot     { background: var(--cat-work); }
+.tag-sport .dot    { background: var(--cat-sport); }
+.tag-food .dot     { background: var(--cat-food); }
+.tag-rest .dot     { background: var(--cat-rest); }
+.tag-personal .dot { background: var(--cat-personal); }
+.toolbar .actions { display: flex; gap: var(--sp-xs); align-items: center; }
+.view-label { font-size: 14px; line-height: 20px; font-weight: 700; color: var(--tob-text-secondary); }
+.view-sel {
+  font-family: var(--tob-font-body); font-size: 14px; line-height: 20px; font-weight: 500;
+  padding: 4px var(--sp-xs); border: 1px solid var(--tob-border); border-radius: var(--tob-radius);
+  color: var(--tob-text); background: var(--tob-bg-alt); cursor: pointer;
+}
+.view-sel:focus { outline: 1px solid var(--tob-brand); border-color: var(--tob-brand); }   /* focus: general visibility baseline */
+
+.btn {
+  font-family: var(--tob-font-body);
+  font-size: 14px; line-height: 20px; font-weight: 700; letter-spacing: 0;
+  border-radius: var(--tob-radius);
+  padding: var(--sp-xs) var(--sp-m);
+  border: 1px solid transparent; cursor: pointer;
+}
+.btn-primary { background: var(--tob-brand); color: var(--tob-text-white); }
+.btn-primary:hover { filter: brightness(0.88); }   /* hover: missing-baseline */
+.btn-ghost { background: var(--tob-bg-alt); color: var(--tob-text-secondary); border-color: var(--tob-border); }
+.btn-ghost:hover { background: var(--tob-bg-main); }
+/* delete action = negative semantics: Status/Negative tokens */
+.btn-danger { background: var(--tob-bg-alt); color: var(--tob-negative); border-color: var(--tob-negative-border); }
+.btn-danger:hover { background: var(--tob-negative-bg); }
+
+
+/* ---------- Calendar ---------- */
+.cal-card {
+  background: var(--tob-bg-alt);
+  border: 1px solid var(--tob-border);
+  border-radius: var(--tob-radius);
+  overflow: hidden;
+}
+.cal-head {
+  display: grid; grid-template-columns: var(--gutter-w) repeat(var(--days, 7), 1fr);
+  border-bottom: 1px solid var(--tob-border);
+  background: var(--tob-bg-alt);
+}
+.gutter-head { border-right: 1px solid var(--tob-border); }
+.day-head {
+  text-align: center; padding: var(--sp-xs) 4px;
+  border-right: 1px solid var(--tob-border);
+  font-size: 16px; line-height: 24px; color: var(--tob-text-secondary);
+}
+.day-head:last-child { border-right: none; }
+.day-head .dow { font-family: var(--tob-font-heading); font-size: 16px; line-height: 24px; font-weight: 700; letter-spacing: 0; }  /* Heading/5 */
+.day-head .dnum {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 28px; height: 28px; border-radius: var(--tob-radius);
+  font-weight: 500; font-size: 16px; line-height: 24px; margin-left: 4px;
+  color: var(--tob-text-tertiary); vertical-align: middle;
+}
+.day-head.today .dnum { background: var(--tob-brand); color: var(--tob-text-white); }
+.day-head.today .dow { color: var(--tob-brand); }
+
+.cal-scroll { max-height: 640px; overflow-y: auto; position: relative; }
+.cal-body { display: grid; grid-template-columns: var(--gutter-w) repeat(var(--days, 7), 1fr); position: relative; }
+
+.gutter { border-right: 1px solid var(--tob-border); position: relative; background: var(--tob-bg-alt); }
+.gutter .t-label {
+  position: absolute; right: 8px; transform: translateY(-50%);
+  font-size: 14px; line-height: 20px; font-weight: 500; color: var(--tob-text-tertiary);
+  font-variant-numeric: tabular-nums;
+}
+
+.day-col {
+  position: relative;
+  border-right: 1px solid var(--tob-border);
+  height: calc(var(--slots, 24) * var(--slot-h));
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent calc(var(--slot-h) - 1px),
+      var(--tob-border-secondary) calc(var(--slot-h) - 1px),
+      var(--tob-border-secondary) var(--slot-h)
+    );
+  cursor: copy;
+  touch-action: none;
+}
+.day-col:last-child { border-right: none; }
+.day-col.today-col { background-color: var(--tob-bg-alt); }
+/* hour lines drawn over the 30-min dashes */
+.day-col::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent calc(var(--hour-h) - 1px),
+      var(--tob-border) calc(var(--hour-h) - 1px),
+      var(--tob-border) var(--hour-h)
+    );
+}
+
+/* drag selection — selected state: missing-baseline, instance values */
+.sel-rect {
+  position: absolute; left: 2px; right: 2px; z-index: 5;
+  background: rgba(54, 67, 186, 0.12);
+  border: 1px dashed var(--tob-brand);
+  border-radius: var(--tob-radius);
+  pointer-events: none;
+  font-size: 14px; line-height: 20px; color: var(--tob-brand);
+  padding: 2px 6px; font-weight: 700; overflow: hidden;
+}
+
+/* events */
+.event {
+  position: absolute; z-index: 4;
+  border-radius: var(--tob-radius);
+  background: var(--tob-bg-alt);
+  border: 1px solid var(--tob-border);
+  border-left: 3px solid var(--tob-text-quaternary);
+  padding: 2px 6px;
+  font-size: 14px; line-height: 20px;
+  overflow: hidden; cursor: pointer;
+}
+.event:hover { border-top-color: var(--tob-text-quaternary); border-right-color: var(--tob-text-quaternary); border-bottom-color: var(--tob-text-quaternary); }
+.event .ev-title { font-weight: 700; display: block; line-height: 20px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--tob-text); }
+.event .ev-time { display: block; color: var(--tob-text-tertiary); font-weight: 500; line-height: 20px; white-space: nowrap; }
+.event .ev-att { display: block; color: var(--tob-text-placeholder); font-weight: 500; line-height: 20px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.event-work     { border-left-color: var(--cat-work); }
+.event-sport    { border-left-color: var(--cat-sport); }
+.event-food     { border-left-color: var(--cat-food); }
+.event-rest     { border-left-color: var(--cat-rest); }
+.event-personal { border-left-color: var(--cat-personal); }
+
+/* now indicator — brand color (no status semantics involved) */
+.now-line { position: absolute; left: 0; right: 0; height: 2px; background: var(--tob-brand); z-index: 6; pointer-events: none; }
+.now-line::before {
+  content: ''; position: absolute; left: -4px; top: -3px;
+  width: 8px; height: 8px; border-radius: var(--tob-radius); background: var(--tob-brand);
+}
+
+/* ---------- Modal ---------- */
+.overlay {
+  position: fixed; inset: 0; z-index: 50;
+  background: rgba(16, 16, 16, 0.45);   /* scrim opacity: missing-baseline */
+  display: none; align-items: center; justify-content: center; padding: var(--sp-m);
+}
+.overlay.open { display: flex; }
+.modal {
+  background: var(--tob-bg-alt);
+  border: 1px solid var(--tob-border);
+  border-radius: var(--tob-radius);
+  width: min(420px, 100%);
+  padding: var(--sp-xl);
+}
+.modal h2 {
+  font-family: var(--tob-font-heading);
+  font-size: 20px; line-height: 28px; font-weight: 700; letter-spacing: 0;  /* Heading/4 */
+  margin: 0 0 var(--sp-2xs); color: var(--tob-text);
+}
+.modal .modal-date { font-size: 14px; line-height: 20px; color: var(--tob-text-tertiary); margin-bottom: var(--sp-m); }
+.field { margin-bottom: var(--sp-m); }
+.field label { display: block; font-size: 14px; line-height: 20px; font-weight: 700; color: var(--tob-text-secondary); margin-bottom: var(--sp-2xs); }
+.field input[type="text"], .field select {
+  width: 100%; font-family: var(--tob-font-body); font-size: 16px; line-height: 24px; font-weight: 500;
+  padding: var(--sp-xs) var(--sp-s);
+  border: 1px solid var(--tob-border); border-radius: var(--tob-radius);
+  color: var(--tob-text); background: var(--tob-bg-alt);
+}
+.field input[type="text"]::placeholder { color: var(--tob-text-placeholder); }
+.field input[type="text"]:focus, .field select:focus {
+  outline: 1px solid var(--tob-brand); border-color: var(--tob-brand);   /* focus: general visibility baseline */
+}
+.field-row { display: flex; gap: var(--sp-s); }
+.field-row .field { flex: 1; }
+
+.cats { display: flex; gap: var(--sp-xs); flex-wrap: wrap; }
+.cat-btn {
+  border: 1px solid var(--tob-border); background: var(--tob-bg-alt);
+  border-radius: var(--tob-radius); padding: 4px 12px; cursor: pointer;
+  font-size: 14px; line-height: 20px; font-weight: 700; font-family: var(--tob-font-body);
+  display: inline-flex; align-items: center; gap: 6px;
+  color: var(--tob-text-tertiary);
+}
+.cat-btn .dot { width: 10px; height: 10px; border-radius: var(--tob-radius); }
+.cat-btn[data-cat="work"] .dot { background: var(--cat-work); }
+.cat-btn[data-cat="sport"] .dot { background: var(--cat-sport); }
+.cat-btn[data-cat="food"] .dot { background: var(--cat-food); }
+.cat-btn[data-cat="rest"] .dot { background: var(--cat-rest); }
+.cat-btn[data-cat="personal"] .dot { background: var(--cat-personal); }
+.cat-btn.active {
+  border-color: var(--tob-brand); color: var(--tob-brand);
+  outline: 1px solid var(--tob-brand); outline-offset: 1px;   /* selected: missing-baseline */
+}
+
+.modal-actions { display: flex; justify-content: space-between; gap: var(--sp-xs); margin-top: var(--sp-l); }
+.modal-actions .right { display: flex; gap: var(--sp-xs); }
+
+.foot {
+  margin-top: var(--sp-m);
+  display: flex; justify-content: space-between; gap: var(--sp-s); flex-wrap: wrap;
+  font-size: 14px; line-height: 20px; color: var(--tob-text-tertiary);
+}
+
+@media print {
+  body { background: #fff; }
+  .toolbar, .overlay, .lang-switch { display: none !important; }
+  .cal-scroll { max-height: none; overflow: visible; }
+  .page { padding: 0; max-width: none; }
+  .hero { background: #fff; color: var(--tob-text); padding: var(--sp-m) 0; }
+  .hero .sub, .range-note, .range-sep { color: var(--tob-text-tertiary); }
+  .hero .accent-chip { background: #fff; color: var(--tob-text); border: 1px solid var(--tob-border); }
+  .range-row .range-label, .date-input, .btn-today { display: none !important; }
+  #print-range { display: inline !important; font-weight: 700; }
+  .hero h1[contenteditable]:hover, .hero h1[contenteditable]:focus { background: none; outline: none; }
+}
+
+/* ---- Apps Script 版本新增（沿用 To-B token；无基线值处标注为实例值） ---- */
+.sheet-link {
+  font-size: 14px; line-height: 20px; color: var(--tob-brand);
+  text-decoration: none; border-bottom: 1px solid var(--tob-brand);
+}
+.sheet-link:hover { color: var(--tob-text); border-bottom-color: var(--tob-text); }
+.sheet-link[hidden] { display: none; }
+/* 禁用态无规范基线值，采用实例值 opacity 0.5 */
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+</style>
+
+<div class="page">
+
+  <header class="hero">
+    <div>
+      <h1 id="sched-title" contenteditable="true" spellcheck="false" role="textbox" aria-label="日程表标题" data-i18n-aria="ariaTitle">一周日常表 · Weekly Calendar</h1>
+      <div class="sub range-row" id="week-range">
+        <span class="range-label" data-i18n="rangeLabel">时间跨度</span>
+        <input type="date" id="range-start" class="date-input" aria-label="开始日期" data-i18n-aria="ariaStart" />
+        <span class="range-sep">–</span>
+        <input type="date" id="range-end" class="date-input" aria-label="结束日期" data-i18n-aria="ariaEnd" />
+        <button type="button" class="btn-today" id="btn-this-week" data-i18n="thisWeek">回到本周</button>
+        <span class="range-note" id="print-range" style="display:none"></span>
+        <span class="range-note" id="range-note"></span>
+      </div>
+    </div>
+    <div class="hero-side">
+      <div class="lang-switch" id="lang-switch" role="group" aria-label="语言切换" data-i18n-aria="ariaLang">
+        <button type="button" class="lang-btn active" data-lang="zh" aria-pressed="true">中文</button>
+        <button type="button" class="lang-btn" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+      <span class="accent-chip" id="today-chip">TODAY</span>
+    </div>
+  </header>
+
+  <div class="toolbar">
+    <div class="legend">
+      <span class="tag tag-work"><span class="dot"></span><span data-i18n="legendWork">工作 / 学习</span></span>
+      <span class="tag tag-sport"><span class="dot"></span><span data-i18n="legendSport">运动</span></span>
+      <span class="tag tag-food"><span class="dot"></span><span data-i18n="legendFood">用餐</span></span>
+      <span class="tag tag-rest"><span class="dot"></span><span data-i18n="legendRest">休息</span></span>
+      <span class="tag tag-personal"><span class="dot"></span><span data-i18n="legendPersonal">个人事务</span></span>
+    </div>
+    <div class="actions">
+      <label class="view-label" for="view-range" data-i18n="viewLabel">显示时段</label>
+      <select id="view-range" class="view-sel" aria-label="显示时段" data-i18n-aria="viewLabel"></select>
+      <button class="btn btn-ghost" id="btn-now" type="button" data-i18n="btnNow">回到当前时间</button>
+      <button class="btn btn-ghost" id="btn-reset" type="button" data-i18n="btnReset">清空日程</button>
+      <button class="btn btn-ghost" id="btn-export" type="button" data-i18n="btnExport">导出到 Google Sheet</button>
+      <button class="btn btn-primary" id="btn-print" type="button" data-i18n="btnPrint">打印 / 导出 PDF</button>
+    </div>
+  </div>
+
+
+  <div class="cal-card">
+    <div class="cal-head" id="cal-head">
+      <div class="gutter-head"></div>
+      <!-- day heads injected -->
+    </div>
+    <div class="cal-scroll" id="cal-scroll">
+      <div class="cal-body" id="cal-body">
+        <div class="gutter" id="gutter"></div>
+        <!-- day cols injected -->
+      </div>
+    </div>
+  </div>
+
+  <footer class="foot">
+    <span>Design tokens: Decathlon To B Design System · SF Pro Text / Source Han Sans CN · Brand #3643BA · Radius 0</span>
+    <a class="sheet-link" id="sheet-link" href="#" target="_blank" rel="noopener" hidden data-i18n="sheetLink">打开表格</a>
+    <span id="save-state" data-i18n="saved">已自动保存</span>
+  </footer>
+</div>
+
+<!-- ---------- Event modal ---------- -->
+<div class="overlay" id="overlay">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-h">
+    <h2 id="modal-h">新建日程</h2>
+    <div class="modal-date" id="modal-date"></div>
+
+    <div class="field">
+      <label for="f-title" data-i18n="fTitle">主题</label>
+      <input type="text" id="f-title" placeholder="例如：晨跑 / 项目评审 / 午餐" data-i18n-ph="titlePh" autocomplete="off">
+    </div>
+
+    <div class="field">
+      <label for="f-att" data-i18n="fAtt">与会人员</label>
+      <input type="text" id="f-att" placeholder="例如：张三、李四（用逗号分隔）" data-i18n-ph="attPh" autocomplete="off">
+    </div>
+
+    <div class="field-row">
+      <div class="field">
+        <label for="f-start" data-i18n="fStart">开始</label>
+        <select id="f-start"></select>
+      </div>
+      <div class="field">
+        <label for="f-end" data-i18n="fEnd">结束</label>
+        <select id="f-end"></select>
+      </div>
+    </div>
+
+    <div class="field">
+      <label data-i18n="fCat">分类颜色</label>
+      <div class="cats" id="f-cats">
+        <button type="button" class="cat-btn" data-cat="work"><span class="dot"></span><span data-i18n="catWork">工作 / 学习</span></button>
+        <button type="button" class="cat-btn" data-cat="sport"><span class="dot"></span><span data-i18n="catSport">运动</span></button>
+        <button type="button" class="cat-btn" data-cat="food"><span class="dot"></span><span data-i18n="catFood">用餐</span></button>
+        <button type="button" class="cat-btn" data-cat="rest"><span class="dot"></span><span data-i18n="catRest">休息</span></button>
+        <button type="button" class="cat-btn" data-cat="personal"><span class="dot"></span><span data-i18n="catPersonal">个人</span></button>
+      </div>
+    </div>
+
+    <div class="modal-actions">
+      <div>
+        <button class="btn btn-danger" id="btn-delete" type="button" style="display:none" data-i18n="btnDelete">删除</button>
+      </div>
+      <div class="right">
+        <button class="btn btn-ghost" id="btn-cancel" type="button" data-i18n="btnCancel">取消</button>
+        <button class="btn btn-primary" id="btn-save" type="button" data-i18n="btnSave">保存</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  // ---------- constants ----------
+  var SLOT_MIN = 30;                       // minutes per slot
+  var SLOT_H = 26;                         // px per 30 min (must match --slot-h)
+  var SLOTS = 48;                          // 24h (full-day slot count)
+  var VIEW_PRESETS = [                     // visible-hours window presets (minutes)
+    { s: 480, e: 1200 },                   // 08:00 – 20:00 (default)
+    { s: 420, e: 1260 },                   // 07:00 – 21:00
+    { s: 360, e: 1320 },                   // 06:00 – 22:00
+    { s: 0,   e: 1440 }                    // 00:00 – 24:00 (all day)
+  ];
+  var DEFAULT_VIEW = '480-1200';
+  var viewStart = 480, viewEnd = 1200;     // runtime mirror of state.view
+  function viewSlots() { return (viewEnd - viewStart) / SLOT_MIN; }
+  var STORE_KEY = 'vtmn-weekly-cal-v1';
+
+  // ---------- i18n ----------
+  var DOW = {
+    zh: ['周日', '周一', '周二', '周三', '周四', '周五', '周六'],
+    en: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+  };
+  var MON_EN = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  var DEFAULT_TITLE = { zh: '一周日常表 · Weekly Calendar', en: 'Weekly Schedule' };
+  var I18N = {
+    zh: {
+      rangeLabel: '时间跨度', thisWeek: '回到本周',
+      legendWork: '工作 / 学习', legendSport: '运动', legendFood: '用餐', legendRest: '休息', legendPersonal: '个人事务',
+      btnNow: '回到当前时间', btnReset: '清空日程', btnPrint: '打印 / 导出 PDF',
+      viewLabel: '显示时段', viewAllDay: '全天',
+      saved: '已自动保存到 Google Sheet', saveFail: '保存失败', cleared: '已清空 {n} 条日程',
+      saving: '正在保存到 Google Sheet…', loaded: '已从 Google Sheet 载入',
+      loadFail: '载入失败（当前显示本地缓存）', btnExport: '导出到 Google Sheet',
+      exporting: '正在导出到 Google Sheet…', exported: '已导出 {n} 条日程到工作表「{sheet}」',
+      exportFail: '导出失败', exportOnlyGas: '导出功能仅在 Apps Script 网页版中可用',
+      sheetLink: '打开表格', savedLocal: '已自动保存（浏览器本地）',
+      confirmClear: '确定要清空当前时间跨度内的所有日程吗？（不影响标题与时间跨度）',
+      confirmDelete: '确定删除该日程吗？', alertEnd: '结束时间必须晚于开始时间',
+      modalNew: '新建日程', modalEdit: '编辑日程',
+      fTitle: '主题', fAtt: '与会人员', fStart: '开始', fEnd: '结束', fCat: '分类颜色',
+      titlePh: '例如：晨跑 / 项目评审 / 午餐',
+      attPh: '例如：张三、李四（用逗号分隔）',
+      catWork: '工作 / 学习', catSport: '运动', catFood: '用餐', catRest: '休息', catPersonal: '个人',
+      btnDelete: '删除', btnCancel: '取消', btnSave: '保存',
+      noTitle: '(无主题)', today: '今天', days: '天',
+      ariaStart: '开始日期', ariaEnd: '结束日期', ariaTitle: '日程表标题', ariaLang: '语言切换'
+    },
+    en: {
+      rangeLabel: 'Date range', thisWeek: 'This week',
+      legendWork: 'Work / Study', legendSport: 'Sports', legendFood: 'Meals', legendRest: 'Rest', legendPersonal: 'Personal',
+      btnNow: 'Go to now', btnReset: 'Clear events', btnPrint: 'Print / Export PDF',
+      viewLabel: 'Visible hours', viewAllDay: 'All day',
+      saved: 'Saved to Google Sheet', saveFail: 'Save failed', cleared: 'Cleared {n} event(s)',
+      saving: 'Saving to Google Sheet…', loaded: 'Loaded from Google Sheet',
+      loadFail: 'Load failed (showing local cache)', btnExport: 'Export to Google Sheet',
+      exporting: 'Exporting to Google Sheet…', exported: 'Exported {n} event(s) to sheet "{sheet}"',
+      exportFail: 'Export failed', exportOnlyGas: 'Export is only available in the Apps Script web app',
+      sheetLink: 'Open sheet', savedLocal: 'Saved locally',
+      confirmClear: 'Clear all events within the current date range? (Title and range are kept.)',
+      confirmDelete: 'Delete this event?', alertEnd: 'End time must be after start time',
+      modalNew: 'New event', modalEdit: 'Edit event',
+      fTitle: 'Title', fAtt: 'Attendees', fStart: 'Start', fEnd: 'End', fCat: 'Category color',
+      titlePh: 'e.g. Morning run / Design review / Lunch',
+      attPh: 'e.g. Alice, Bob (comma separated)',
+      catWork: 'Work / Study', catSport: 'Sports', catFood: 'Meals', catRest: 'Rest', catPersonal: 'Personal',
+      btnDelete: 'Delete', btnCancel: 'Cancel', btnSave: 'Save',
+      noTitle: '(No title)', today: 'Today', days: 'days',
+      ariaStart: 'Start date', ariaEnd: 'End date', ariaTitle: 'Schedule title', ariaLang: 'Language switcher'
+    }
+  };
+  var LANG = 'zh';
+  function t(key) { return (I18N[LANG] && I18N[LANG][key]) || I18N.zh[key] || key; }
+  function tpl(key, obj) { return t(key).replace(/\{(\w+)\}/g, function (m, k) { return obj[k]; }); }
+  function dowName(i) { return DOW[LANG][i]; }
+  function fmtDateDay(d) { // "11月9日" / "Nov 9"
+    return LANG === 'zh' ? (d.getMonth() + 1) + '月' + d.getDate() + '日' : MON_EN[d.getMonth()] + ' ' + d.getDate();
+  }
+
+  // ---------- helpers ----------
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+  function fmtMin(m) { return pad(Math.floor(m / 60)) + ':' + pad(m % 60); }
+  function dateKey(d) { return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
+  function minutesToY(m) { return ((m - viewStart) / SLOT_MIN) * SLOT_H; }
+  function yToSlot(y) { return Math.max(0, Math.min(viewSlots() - 1, Math.floor(y / SLOT_H))); }
+
+  function weekDates() {
+    var now = new Date();
+    var mon = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    mon.setDate(mon.getDate() - ((mon.getDay() + 6) % 7)); // Monday
+    var out = [];
+    for (var i = 0; i < 7; i++) {
+      var d = new Date(mon.getFullYear(), mon.getMonth(), mon.getDate());
+      d.setDate(mon.getDate() + i);
+      out.push(d);
+    }
+    return out;
+  }
+
+  // ---------- state ----------
+  // 运行环境：Apps Script Web App 中数据存于 Google Sheet；
+  // 直接用浏览器打开该文件时自动退化为 localStorage。
+  var IS_GAS = typeof google !== 'undefined' && !!(google.script && google.script.run);
+  var pendingSave = false;
+  var state = { events: [] };
+
+  function hydrate(obj) {
+    if (obj && typeof obj === 'object') state = obj;
+    if (!Array.isArray(state.events)) state.events = [];
+    if (state.lang === 'en' || state.lang === 'zh') LANG = state.lang;
+    normalize();
+    return state;
+  }
+  function hydrateLocal() {
+    try {
+      var raw = localStorage.getItem(STORE_KEY);
+      if (raw) return hydrate(JSON.parse(raw));
+    } catch (e) { /* 沙箱中 localStorage 可能不可用 */ }
+    normalize();
+    return state;
+  }
+
+  var saveTimer = null;
+  function persist() {
+    var json = JSON.stringify(state);
+    try { localStorage.setItem(STORE_KEY, json); } catch (e) { /* 离线缓存，失败可忽略 */ }
+    if (!IS_GAS) { flash(t('savedLocal')); return; }   // 浏览器直接打开时的退化路径
+    flash(t('saving'));
+    pendingSave = true;
+    if (saveTimer) clearTimeout(saveTimer);
+    // 合并连续修改（拖拽 / 连续编辑），减少对表格的写入次数
+    saveTimer = setTimeout(function () {
+      saveTimer = null;
+      google.script.run
+        .withSuccessHandler(function () { pendingSave = false; flash(t('saved')); })
+        .withFailureHandler(function (err) { pendingSave = false; flash(errText(t('saveFail'), err)); })
+        .saveState(json);
+    }, 600);
+  }
+  function errText(prefix, err) {
+    var m = err && err.message ? err.message : (err ? String(err) : '');
+    return m ? prefix + ' · ' + m : prefix;
+  }
+  function flash(msg) { document.getElementById('save-state').textContent = msg; }
+  function nextId() {
+    return 'e' + Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+  }
+
+  // ---------- build static grid ----------
+  var MAX_DAYS = 31;                         // hard cap on range length
+  var week = [];                             // dates currently in view (derived from range)
+  var todayKey = dateKey(new Date());
+
+  function parseDate(str) {
+    var p = String(str).split('-');
+    return new Date(+p[0], (+p[1]) - 1, +p[2]);
+  }
+  // normalize + clamp a [start,end] pair → {start,end} as YYYY-MM-DD
+  function normRange(sStr, eStr) {
+    var s = parseDate(sStr), e = parseDate(eStr);
+    if (isNaN(s.getTime())) s = parseDate(todayKey);
+    if (isNaN(e.getTime())) e = new Date(s.getFullYear(), s.getMonth(), s.getDate());
+    if (e < s) { var tmp = s; s = e; e = tmp; }   // swap so start <= end
+    var span = Math.round((e - s) / 86400000) + 1;
+    if (span > MAX_DAYS) { e = new Date(s.getFullYear(), s.getMonth(), s.getDate()); e.setDate(s.getDate() + MAX_DAYS - 1); }
+    return { start: dateKey(s), end: dateKey(e) };
+  }
+  function rangeDates(sStr, eStr) {
+    var r = normRange(sStr, eStr);
+    var s = parseDate(r.start), e = parseDate(r.end), out = [];
+    for (var d = new Date(s); d <= e; d.setDate(d.getDate() + 1)) out.push(new Date(d.getFullYear(), d.getMonth(), d.getDate()));
+    return out;
+  }
+  // seed defaults (current week) when unset; normalize any stored range
+  function normalize() {
+    if (!state.start || !state.end) {
+      var w0 = weekDates();
+      state.start = dateKey(w0[0]); state.end = dateKey(w0[6]);
+    } else {
+      var nr = normRange(state.start, state.end); state.start = nr.start; state.end = nr.end;
+    }
+    if (typeof state.title !== 'string' || !state.title.trim()) state.title = DEFAULT_TITLE[LANG];
+    if (!VIEW_PRESETS.some(function (p) { return p.s + '-' + p.e === state.view; })) state.view = DEFAULT_VIEW;
+  }
+
+  function buildGutter() {
+    var g = document.getElementById('gutter');
+    g.innerHTML = '';
+    g.style.height = (viewSlots() * SLOT_H) + 'px';
+    for (var hm = viewStart + 60; hm < viewEnd; hm += 60) { // skip boundary label at very top
+      var lab = document.createElement('div');
+      lab.className = 't-label';
+      lab.style.top = minutesToY(hm) + 'px';
+      lab.textContent = pad(hm / 60) + ':00';
+      g.appendChild(lab);
+    }
+  }
+
+  function buildHeads() {
+    var head = document.getElementById('cal-head');
+    week.forEach(function (d) {
+      var el = document.createElement('div');
+      el.className = 'day-head' + (dateKey(d) === todayKey ? ' today' : '');
+      el.innerHTML = '<span class="dow">' + dowName(d.getDay()) + '</span>' +
+        '<span class="dnum">' + (d.getMonth() + 1) + '/' + d.getDate() + '</span>';
+      head.appendChild(el);
+    });
+  }
+
+  function updateMeta() {
+    var now = new Date();
+    document.getElementById('today-chip').textContent =
+      t('today') + ' · ' + dowName(now.getDay()) + ' ' + fmtMin(now.getHours() * 60 + now.getMinutes());
+    document.getElementById('range-note').textContent = LANG === 'zh'
+      ? '· 共 ' + week.length + ' 天'
+      : '· ' + week.length + ' ' + t('days');
+    var a = week[0], b = week[week.length - 1];
+    document.getElementById('print-range').textContent = LANG === 'zh'
+      ? fmtDateDay(a) + ' – ' + fmtDateDay(b) + ' · 共 ' + week.length + ' 天'
+      : fmtDateDay(a) + ' – ' + fmtDateDay(b) + ' · ' + week.length + ' ' + t('days');
+  }
+
+  var dayCols = {}; // dateKey -> element
+  function buildCols() {
+    var body = document.getElementById('cal-body');
+    week.forEach(function (d) {
+      var col = document.createElement('div');
+      col.className = 'day-col' + (dateKey(d) === todayKey ? ' today-col' : '');
+      col.dataset.date = dateKey(d);
+      body.appendChild(col);
+      dayCols[col.dataset.date] = col;
+      attachDrag(col);
+    });
+  }
+
+  // rebuild the grid for the current state.start/end range
+  function applyRange() {
+    week = rangeDates(state.start, state.end);
+    var n = week.length;
+    document.getElementById('cal-head').style.setProperty('--days', n);
+    document.getElementById('cal-body').style.setProperty('--days', n);
+    rebuildGrid();
+  }
+  function rebuildGrid() {
+    var head = document.getElementById('cal-head');
+    Array.prototype.slice.call(head.querySelectorAll('.day-head')).forEach(function (x) { x.remove(); });
+    var body = document.getElementById('cal-body');
+    Array.prototype.slice.call(body.querySelectorAll('.day-col')).forEach(function (x) { x.remove(); });
+    dayCols = {};
+    buildHeads();
+    buildCols();
+    updateMeta();
+    render();
+  }
+
+  // ---------- overlap layout ----------
+  function layoutDay(evs) {
+    var sorted = evs.slice().sort(function (a, b) { return a.start - b.start || b.end - a.end; });
+    var clusters = [], cur = [], curEnd = -1;
+    sorted.forEach(function (ev) {
+      if (cur.length && ev.start >= curEnd) { clusters.push(cur); cur = []; curEnd = -1; }
+      cur.push(ev);
+      curEnd = Math.max(curEnd, ev.end);
+    });
+    if (cur.length) clusters.push(cur);
+
+    var pos = {};
+    clusters.forEach(function (cl) {
+      var colEnds = [];
+      cl.forEach(function (ev) {
+        var ci = -1;
+        for (var i = 0; i < colEnds.length; i++) {
+          if (colEnds[i] <= ev.start) { ci = i; break; }
+        }
+        if (ci === -1) { ci = colEnds.length; colEnds.push(0); }
+        colEnds[ci] = ev.end;
+        pos[ev.id] = { col: ci, cols: 0 };
+      });
+      cl.forEach(function (ev) { pos[ev.id].cols = colEnds.length; });
+    });
+    return pos;
+  }
+
+  // ---------- render events ----------
+  function render() {
+    Object.keys(dayCols).forEach(function (k) {
+      var col = dayCols[k];
+      Array.prototype.slice.call(col.querySelectorAll('.event')).forEach(function (n) { n.remove(); });
+
+      var evs = state.events.filter(function (e) { return e.date === k && e.end > viewStart && e.start < viewEnd; });
+      var pos = layoutDay(evs);
+      evs.forEach(function (ev) {
+        var p = pos[ev.id] || { col: 0, cols: 1 };
+        var el = document.createElement('div');
+        el.className = 'event event-' + ev.cat;
+        var topM = Math.max(ev.start, viewStart), botM = Math.min(ev.end, viewEnd);
+        el.style.top = minutesToY(topM) + 'px';
+        el.style.height = Math.max(minutesToY(botM) - minutesToY(topM) - 2, 18) + 'px';
+        el.style.left = 'calc(' + (p.col * (100 / p.cols)) + '% + 2px)';
+        el.style.width = 'calc(' + (100 / p.cols) + '% - 4px)';
+        el.title = ev.title + ' · ' + fmtMin(ev.start) + '–' + fmtMin(ev.end)
+          + (ev.att ? ' · ' + t('fAtt') + ': ' + ev.att : '');
+        el.innerHTML = '<span class="ev-title"></span><span class="ev-time"></span>'
+          + (ev.att ? '<span class="ev-att"></span>' : '');
+        el.querySelector('.ev-title').textContent = ev.title || t('noTitle');
+        el.querySelector('.ev-time').textContent = fmtMin(ev.start) + ' – ' + fmtMin(ev.end);
+        if (ev.att) el.querySelector('.ev-att').textContent = ev.att;
+        el.addEventListener('click', function (e) { e.stopPropagation(); openModal(ev); });
+        col.appendChild(el);
+      });
+    });
+    renderNowLine();
+  }
+
+  // ---------- now indicator ----------
+  function renderNowLine() {
+    Object.keys(dayCols).forEach(function (k) {
+      var old = dayCols[k].querySelector('.now-line');
+      if (old) old.remove();
+    });
+    var now = new Date();
+    var m = now.getHours() * 60 + now.getMinutes();
+    if (dayCols[todayKey] && m >= viewStart && m < viewEnd) {
+      var line = document.createElement('div');
+      line.className = 'now-line';
+      line.style.top = minutesToY(m) + 'px';
+      dayCols[todayKey].appendChild(line);
+    }
+  }
+
+  // ---------- drag selection ----------
+  var drag = null;
+  function attachDrag(col) {
+    col.addEventListener('mousedown', function (e) {
+      if (e.button !== 0) return;
+      if (e.target.closest('.event')) return;
+      var rect = col.getBoundingClientRect();
+      var slot = yToSlot(e.clientY - rect.top);
+      drag = { col: col, date: col.dataset.date, anchor: slot, cur: slot };
+      showSel();
+      e.preventDefault();
+    });
+  }
+
+  function selRange() {
+    var a = Math.min(drag.anchor, drag.cur);
+    var b = Math.max(drag.anchor, drag.cur) + 1; // at least one slot
+    return { start: viewStart + a * SLOT_MIN, end: Math.min(viewStart + b * SLOT_MIN, viewEnd) };
+  }
+
+  function showSel() {
+    var col = drag.col;
+    var rect = col.querySelector('.sel-rect');
+    if (!rect) { rect = document.createElement('div'); rect.className = 'sel-rect'; col.appendChild(rect); }
+    var r = selRange();
+    rect.style.top = minutesToY(r.start) + 'px';
+    rect.style.height = (minutesToY(r.end) - minutesToY(r.start)) + 'px';
+    rect.textContent = fmtMin(r.start) + ' – ' + fmtMin(r.end);
+  }
+
+  function clearSel() {
+    if (!drag) return;
+    var rect = drag.col.querySelector('.sel-rect');
+    if (rect) rect.remove();
+  }
+
+  document.addEventListener('mousemove', function (e) {
+    if (!drag) return;
+    var rect = drag.col.getBoundingClientRect();
+    drag.cur = yToSlot(e.clientY - rect.top);
+    showSel();
+  });
+
+  document.addEventListener('mouseup', function (e) {
+    if (!drag) return;
+    var d = drag;
+    var r = selRange();
+    drag = null;
+    clearSelFrom(d.col);
+    // single click (no drag) → default 1 hour
+    if (d.anchor === d.cur) r.end = Math.min(r.start + 60, viewEnd);
+    openModal({ id: null, date: d.date, start: r.start, end: r.end, title: '', cat: 'work' });
+  });
+
+  function clearSelFrom(col) {
+    var rect = col.querySelector('.sel-rect');
+    if (rect) rect.remove();
+  }
+
+  // ---------- modal ----------
+  var overlay = document.getElementById('overlay');
+  var fTitle = document.getElementById('f-title');
+  var fAtt = document.getElementById('f-att');
+  var fStart = document.getElementById('f-start');
+  var fEnd = document.getElementById('f-end');
+  var fCats = document.getElementById('f-cats');
+  var btnDelete = document.getElementById('btn-delete');
+  var editing = null; // {id?} or null for new
+  var draft = null;   // current form model
+  var selectedCat = 'work';
+
+  // fill time selects (30-min steps)
+  (function fillTimes() {
+    for (var m = 0; m <= 24 * 60; m += SLOT_MIN) {
+      var o1 = document.createElement('option'); o1.value = m; o1.textContent = fmtMin(m);
+      var o2 = o1.cloneNode(true);
+      fStart.appendChild(o1); fEnd.appendChild(o2);
+    }
+  })();
+
+  function setCat(c) {
+    selectedCat = c;
+    Array.prototype.forEach.call(fCats.querySelectorAll('.cat-btn'), function (b) {
+      b.classList.toggle('active', b.dataset.cat === c);
+    });
+  }
+  fCats.addEventListener('click', function (e) {
+    var b = e.target.closest('.cat-btn');
+    if (b) setCat(b.dataset.cat);
+  });
+
+  function openModal(ev) {
+    draft = {
+      id: ev.id || null, date: ev.date,
+      start: ev.start, end: ev.end, title: ev.title || '', att: ev.att || '', cat: ev.cat || 'work'
+    };
+    document.getElementById('modal-h').textContent = ev.id ? t('modalEdit') : t('modalNew');
+    var d = new Date(ev.date + 'T00:00:00');
+    document.getElementById('modal-date').textContent = LANG === 'zh'
+      ? fmtDateDay(d) + ' · ' + dowName(d.getDay())
+      : dowName(d.getDay()) + ', ' + fmtDateDay(d);
+    fTitle.value = draft.title;
+    fAtt.value = draft.att;
+    fStart.value = draft.start;
+    fEnd.value = draft.end;
+    setCat(draft.cat);
+    btnDelete.style.display = ev.id ? '' : 'none';
+    overlay.classList.add('open');
+    setTimeout(function () { fTitle.focus(); }, 30);
+  }
+
+  function closeModal() { overlay.classList.remove('open'); draft = null; }
+
+  document.getElementById('btn-cancel').addEventListener('click', closeModal);
+  overlay.addEventListener('mousedown', function (e) { if (e.target === overlay) closeModal(); });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && overlay.classList.contains('open')) closeModal();
+  });
+
+  document.getElementById('btn-save').addEventListener('click', function () {
+    if (!draft) return;
+    var start = parseInt(fStart.value, 10);
+    var end = parseInt(fEnd.value, 10);
+    if (end <= start) { alert(t('alertEnd')); return; }
+    var data = {
+      id: draft.id || nextId(),
+      date: draft.date, start: start, end: end,
+      title: fTitle.value.trim(), att: fAtt.value.trim(), cat: selectedCat
+    };
+    if (draft.id) {
+      var i = state.events.findIndex(function (e) { return e.id === draft.id; });
+      if (i >= 0) state.events[i] = data; else state.events.push(data);
+    } else {
+      state.events.push(data);
+    }
+    persist(); render(); closeModal();
+  });
+
+  btnDelete.addEventListener('click', function () {
+    if (!draft || !draft.id) return;
+    if (!confirm(t('confirmDelete'))) return;
+    state.events = state.events.filter(function (e) { return e.id !== draft.id; });
+    persist(); render(); closeModal();
+  });
+
+  // Enter in title saves
+  fTitle.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') { e.preventDefault(); document.getElementById('btn-save').click(); }
+  });
+
+  // ---------- toolbar ----------
+  // 在 Apps Script 的 iframe 沙箱里 window.print() 会打印宿主页面，
+  // 因此改为把「当前显示的内容」复制到新窗口再打印，保证所见即所得。
+  function printView() {
+    if (!IS_GAS) { window.print(); return; }
+    var cssText = Array.prototype.map.call(document.querySelectorAll('style'), function (s) {
+      return s.innerHTML;
+    }).join('\n');
+    var bodyHtml = ['.hero', '.cal-card'].map(function (sel) {
+      var el = document.querySelector(sel);
+      return el ? el.outerHTML : '';
+    }).join('\n');
+    var w = window.open('', '_blank');
+    if (!w) { window.print(); return; }
+    w.document.open();
+    w.document.write('<!DOCTYPE html><html lang="' + LANG + '"><head><meta charset="utf-8">' +
+      '<title>' + document.getElementById('sched-title').textContent + '</title>' +
+      '<style>' + cssText +
+      '@page { size: A4 landscape; margin: 12mm; }' +
+      'body { background: #fff; }' +
+      '.page { max-width: none; padding: 0; }' +
+      '.cal-scroll { max-height: none !important; overflow: visible !important; }' +
+      '.toolbar, .overlay, .lang-switch { display: none !important; }' +
+      '</style></head><body><div class="page">' + bodyHtml + '</div></body></html>');
+    w.document.close();
+    w.focus();
+    setTimeout(function () { w.print(); }, 400);
+  }
+  document.getElementById('btn-print').addEventListener('click', printView);
+
+  // ---------- 导出到 Google Sheet ----------
+  var sheetLink = document.getElementById('sheet-link');
+  function setSheetUrl(url) {
+    if (!url) { sheetLink.hidden = true; return; }
+    sheetLink.href = url;
+    sheetLink.hidden = false;
+  }
+  document.getElementById('btn-export').addEventListener('click', function () {
+    if (!IS_GAS) { flash(t('exportOnlyGas')); return; }
+    var btn = this;
+    btn.disabled = true;
+    flash(t('exporting'));
+    google.script.run
+      .withSuccessHandler(function (res) {
+        btn.disabled = false;
+        if (res && res.url) setSheetUrl(res.url);
+        flash(tpl('exported', { n: res ? res.rows : 0, sheet: res ? res.sheet : '' }));
+      })
+      .withFailureHandler(function (err) {
+        btn.disabled = false;
+        flash(errText(t('exportFail'), err));
+      })
+      .exportToSheet(LANG);
+  });
+  document.getElementById('btn-now').addEventListener('click', function () { scrollToNow(); });
+  document.getElementById('btn-reset').addEventListener('click', function () {
+    if (confirm(t('confirmClear'))) {
+      var keys = {};
+      rangeDates(state.start, state.end).forEach(function (d) { keys[dateKey(d)] = 1; });
+      var before = state.events.length;
+      state.events = state.events.filter(function (e) { return !keys[e.date]; });
+      persist(); render();
+      flash(tpl('cleared', { n: before - state.events.length }));
+    }
+  });
+
+  // ---------- visible-hours window ----------
+  function syncViewSel() {
+    var sel = document.getElementById('view-range');
+    sel.innerHTML = '';
+    VIEW_PRESETS.forEach(function (p) {
+      var o = document.createElement('option');
+      o.value = p.s + '-' + p.e;
+      o.textContent = fmtMin(p.s) + ' – ' + fmtMin(p.e) + (p.e - p.s === 1440 ? ' · ' + t('viewAllDay') : '');
+      sel.appendChild(o);
+    });
+    sel.value = state.view;
+  }
+  function setView(key, doPersist) {
+    var v = null;
+    VIEW_PRESETS.forEach(function (p) { if (p.s + '-' + p.e === key) v = p; });
+    if (!v) { key = DEFAULT_VIEW; v = VIEW_PRESETS[0]; }
+    viewStart = v.s; viewEnd = v.e; state.view = key;
+    document.documentElement.style.setProperty('--slots', viewSlots());
+    syncViewSel();
+    buildGutter();
+    if (doPersist) { persist(); render(); scrollToNow(); }
+  }
+  document.getElementById('view-range').addEventListener('change', function () {
+    setView(this.value, true);
+  });
+
+  function scrollToNow() {
+    var sc = document.getElementById('cal-scroll');
+    var now = new Date();
+    var m = now.getHours() * 60 + now.getMinutes();
+    sc.scrollTop = Math.max(0, minutesToY(m) - sc.clientHeight / 3);
+  }
+
+  // ---------- editable title ----------
+  var titleEl = document.getElementById('sched-title');
+  titleEl.addEventListener('input', function () {
+    state.title = titleEl.textContent.replace(/\u00a0/g, ' ');
+  });
+  titleEl.addEventListener('blur', function () {
+    if (!titleEl.textContent.trim()) titleEl.textContent = DEFAULT_TITLE[LANG];
+    state.title = titleEl.textContent.trim();
+    titleEl.textContent = state.title;
+    persist();
+  });
+  titleEl.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') { e.preventDefault(); titleEl.blur(); }
+  });
+  titleEl.addEventListener('paste', function (e) {
+    e.preventDefault();
+    var t = (e.clipboardData || window.clipboardData).getData('text');
+    document.execCommand('insertText', false, t);
+  });
+
+  // ---------- editable range (drives the grid columns) ----------
+  var rangeStart = document.getElementById('range-start');
+  var rangeEnd = document.getElementById('range-end');
+  function syncRangeInputs() { rangeStart.value = state.start; rangeEnd.value = state.end; }
+  function onRangeInput() {
+    var r = normRange(rangeStart.value || state.start, rangeEnd.value || state.end);
+    state.start = r.start; state.end = r.end;
+    syncRangeInputs();
+    persist(); applyRange();
+  }
+  rangeStart.addEventListener('change', onRangeInput);
+  rangeEnd.addEventListener('change', onRangeInput);
+  document.getElementById('btn-this-week').addEventListener('click', function () {
+    var w = weekDates();
+    state.start = dateKey(w[0]); state.end = dateKey(w[6]);
+    syncRangeInputs();
+    persist(); applyRange(); scrollToNow();
+  });
+
+  // ---------- language switch ----------
+  function syncLangBtns() {
+    Array.prototype.forEach.call(document.querySelectorAll('.lang-btn'), function (b) {
+      var on = b.dataset.lang === LANG;
+      b.classList.toggle('active', on);
+      b.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+  }
+  function applyI18n() {
+    Array.prototype.forEach.call(document.querySelectorAll('[data-i18n]'), function (el) {
+      el.textContent = t(el.getAttribute('data-i18n'));
+    });
+    Array.prototype.forEach.call(document.querySelectorAll('[data-i18n-html]'), function (el) {
+      el.innerHTML = t(el.getAttribute('data-i18n-html'));
+    });
+    Array.prototype.forEach.call(document.querySelectorAll('[data-i18n-ph]'), function (el) {
+      el.setAttribute('placeholder', t(el.getAttribute('data-i18n-ph')));
+    });
+    Array.prototype.forEach.call(document.querySelectorAll('[data-i18n-aria]'), function (el) {
+      el.setAttribute('aria-label', t(el.getAttribute('data-i18n-aria')));
+    });
+    syncViewSel();
+    document.title = LANG === 'zh' ? '一周日常表 · Weekly Calendar' : 'Weekly Schedule · To B';
+  }
+  function setLang(lang) {
+    if ((lang !== 'zh' && lang !== 'en') || lang === LANG) return;
+    LANG = lang; state.lang = lang;
+    // follow the language only while the title is still a default (not user-customized)
+    var cur = (state.title || '').trim();
+    if (!cur || cur === DEFAULT_TITLE.zh || cur === DEFAULT_TITLE.en) {
+      state.title = DEFAULT_TITLE[LANG];
+      document.getElementById('sched-title').textContent = state.title;
+    }
+    syncLangBtns();
+    persist();
+    applyI18n();
+    rebuildGrid();
+  }
+  document.getElementById('lang-switch').addEventListener('click', function (e) {
+    var b = e.target.closest('.lang-btn');
+    if (b) setLang(b.dataset.lang);
+  });
+
+  // ---------- init ----------
+  var nowTimer = null;
+  function initApp() {
+    setView(state.view, false);
+    titleEl.textContent = state.title;
+    syncRangeInputs();
+    syncLangBtns();
+    applyI18n();
+    applyRange();
+    scrollToNow();
+    if (!nowTimer) nowTimer = setInterval(renderNowLine, 60000);
+  }
+
+  // 先用本地缓存即时渲染（避免 iframe 白屏），再用云端数据覆盖。
+  hydrateLocal();
+  initApp();
+
+  if (IS_GAS) {
+    google.script.run
+      .withSuccessHandler(function (res) {
+        if (!res) return;
+        if (res.url) setSheetUrl(res.url);
+        if (!res.json || pendingSave) return;   // 用户已开始编辑时不覆盖
+        var remote;
+        try { remote = JSON.parse(res.json); } catch (e) { return; }
+        hydrate(remote);
+        initApp();
+        flash(t('loaded'));
+      })
+      .withFailureHandler(function (err) { flash(errText(t('loadFail'), err)); })
+      .loadState();
+  }
+})();
+</script>
